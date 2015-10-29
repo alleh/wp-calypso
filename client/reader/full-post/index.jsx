@@ -28,14 +28,11 @@ var analytics = require( 'analytics' ),
 	PostErrors = require( 'reader/post-errors' ),
 	PostStore = require( 'lib/feed-post-store' ),
 	PostStoreActions = require( 'lib/feed-post-store/actions' ),
-	SiteIcon = require( 'components/site-icon' ),
-	SiteLink = require( 'reader/site-link' ),
 	SiteState = require( 'lib/reader-site-store/constants' ).state,
 	SiteStore = require( 'lib/reader-site-store' ),
 	SiteStoreActions = require( 'lib/reader-site-store/actions' ),
 	utils = require( 'reader/utils' ),
 	LikeHelper = require( 'reader/like-helper' ),
-	CommentStore = require( 'lib/comment-store/comment-store' ),
 	stats = require( 'reader/stats' ),
 	PostExcerptLink = require( 'reader/post-excerpt-link' ),
 	ShareButton = require( 'reader/share' ),
@@ -102,7 +99,7 @@ FullPostView = React.createClass( {
 
 	// if comments updated and we have not scrolled to the anchor yet, then scroll
 	checkForCommentAnchor: function() {
-		const hash = window.location.hash.substr(1);
+		const hash = window.location.hash.substr( 1 );
 		if ( this.refs.commentList && hash.indexOf( 'comments' ) > -1 && ! this.hasScrolledToAnchor ) {
 			this.scrollToComments();
 		}
@@ -269,24 +266,11 @@ FullPostDialog = React.createClass( {
 					action: 'close',
 					isPrimary: true
 				}
-			], siteName, siteLink;
-
-		siteName = utils.siteNameFromSiteAndPost( site, post );
-
-		siteLink = this.props.suppressSiteNameLink
-			? siteName
-			: ( <SiteLink post={ post }>{ siteName }</SiteLink> );
+			];
 
 		if ( post && ! post._state ) {
 			shouldShowComments = PostCommentHelper.shouldShowComments( post );
 			shouldShowLikes = LikeHelper.shouldShowLikes( post );
-
-			buttons.push(
-				<div className="full-post__site" key="site-name">
-					<SiteIcon site={ site && site.toJS() } size={ 24 } />
-					<span className="full-post__site-name">{ siteLink }</span>
-				</div>
-			);
 
 			buttons.push( <PostOptions key="post-options" post={ post } site={ site } onBlock={ this.props.onClose } /> );
 
