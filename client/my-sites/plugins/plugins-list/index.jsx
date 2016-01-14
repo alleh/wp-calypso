@@ -42,11 +42,10 @@ export default React.createClass( {
 	},
 
 	componentDidMount() {
-		PluginsLog.on( 'change', this.showDisconnectDialog );
+		if ( this.props.isWpCom !== true ) {
 	},
 
 	componentWillUnmount() {
-		PluginsLog.removeListener( 'change', this.showDisconnectDialog );
 	shouldComponentUpdate( nextProps ) {
 		const { selectedSite } = nextProps;
 		// Don't update the component if we are not showing it anyway
