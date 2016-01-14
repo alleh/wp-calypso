@@ -183,3 +183,7 @@
 		@include plans-in-three-columns();
 	}
 }
+
+.jetpack_premium .plan-header__title, .jetpack_business .plan-header__title {
+	margin-top: 15px;
+}
