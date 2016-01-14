@@ -47,6 +47,15 @@ export default React.createClass( {
 
 	componentWillUnmount() {
 		PluginsLog.removeListener( 'change', this.showDisconnectDialog );
+	shouldComponentUpdate( nextProps ) {
+		const { selectedSite } = nextProps;
+		// Don't update the component if we are not showing it anyway
+		if ( selectedSite &&
+			selectedSite.jetpack === nextProps.isWpCom &&
+			this.props.isWpCom !== nextProps.isWpCom ) {
+			return false;
+		}
+		return true;
 	},
 
 	isSelected( plugin ) {
