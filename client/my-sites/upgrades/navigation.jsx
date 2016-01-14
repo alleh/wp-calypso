@@ -29,6 +29,12 @@ var SectionNav = require( 'components/section-nav' ),
 // remaining paths will make the button highlighted on that page.
 
 var NAV_ITEMS = {
+	Addons: {
+		paths: [ '/plans' ],
+		label: i18n.translate( 'Add-ons for Jetpack sites' ),
+		allSitesPath: false
+	},
+
 	Plans: {
 		paths: [ '/plans' ],
 		label: i18n.translate( 'Plans' ),
@@ -110,7 +116,7 @@ var UpgradesNavigation = React.createClass( {
 		var items;
 
 		if ( this.props.selectedSite.jetpack ) {
-			items = [ 'Plans' ];
+			items = [ 'Addons' ];
 		} else {
 			items = [ 'Plans', 'Domains', 'Email' ];
 		}
