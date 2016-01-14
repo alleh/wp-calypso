@@ -45,13 +45,32 @@ module.exports = React.createClass( {
 			return <div className="plan-price is-placeholder" />;
 		}
 
-	    return (
-	        <div className="plan-price">
-	            <span>{ this.getPrice() }</span>
-	            <small className="plan-price__billing-period">
-	                { hasDiscount ? this.translate( 'for first year' ) : plan.bill_period_label }
-	            </small>
-	        </div>
-	    );
+		if ( this.props.site.jetpack ) {
+			return (
+		        <div className="plan-price">
+		            <span className="jetpack-price">{ this.props.plan.original }</span>
+		            <small className="plan-price__billing-period">
+		                { this.translate( 'cost of individual plugins' ) }
+		            </small>
+		            <span className="jetpack-price">{ this.getPrice() }</span>
+		            <small className="plan-price__billing-period">
+		                { hasDiscount ? this.translate( 'for first year' ) : plan.bill_period_label } (
+		                { this.props.plan.saving }
+		                % { this.translate( 'savings' ) })
+		            </small>
+		        </div>
+		    );
+		} else {
+			return (
+		        <div className="plan-price">
+		            <span>{ this.getPrice() }</span>
+		            <small className="plan-price__billing-period">
+		                { hasDiscount ? this.translate( 'for first year' ) : plan.bill_period_label }
+		            </small>
+		        </div>
+		    );
+		}
+
+		    
 	}
 } );
