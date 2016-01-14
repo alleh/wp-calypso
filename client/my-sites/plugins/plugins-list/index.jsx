@@ -24,7 +24,13 @@ export default React.createClass( {
 	mixins: [ PluginNotices ],
 
 	propTypes: {
-		plugins: PropTypes.array.isRequired,
+		plugins: PropTypes.arrayOf( PropTypes.shape( {
+			sites: PropTypes.array,
+			slug: PropTypes.string,
+			name: PropTypes.string,
+			wpcom: PropTypes.bool,
+			wporg: PropTypes.bool,
+		} ) ).isRequired,
 		header: PropTypes.string.isRequired,
 		isWpCom: PropTypes.bool.isRequired,
 		sites: PropTypes.object.isRequired,
