@@ -73,7 +73,8 @@ export default React.createClass( {
 
 	setBulkSelectionState( plugins, selectionState ) {
 		let slugsToBeUpdated = {};
-		plugins.forEach( plugin => slugsToBeUpdated[ plugin.slug] = selectionState );
+		plugins.forEach( plugin => slugsToBeUpdated[ plugin.slug] = this.hasNoSitesThatCanManage( plugin ) ? false : selectionState );
+
 		this.setState( { selectedPlugins: Object.assign( {}, this.state.selectedPlugins, slugsToBeUpdated ) } );
 	},
 
@@ -115,6 +116,11 @@ export default React.createClass( {
 			return 0;
 		}
 		return this.props.pluginUpdateCount;
+	},
+
+	hasNoSitesThatCanManage( plugin ) {
+		return ! plugin.wpcom &&
+			! plugin.sites.some( site => site.modules && site.modules.indexOf( 'manage' ) !== -1 );
 	},
 
 	getSelected() {
@@ -371,12 +377,10 @@ export default React.createClass( {
 
 	renderPlugin( plugin ) {
 		const selectThisPlugin = this.togglePlugin.bind( this, plugin );
-		const hasAllNoManageSites = ! plugin.wpcom &&
-									! plugin.sites.some( site => site.modules && site.modules.indexOf( 'manage' ) !== -1 );
 		return (
 			<PluginItem
 				key={ plugin.slug }
-				hasAllNoManageSites={ hasAllNoManageSites }
+				hasAllNoManageSites={ this.hasNoSitesThatCanManage( plugin ) }
 				plugin={ plugin }
 				sites={ plugin.sites }
 				progress={ this.state.notices.inProgress.filter( log => log.plugin.slug === plugin.slug ) }
