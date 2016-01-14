@@ -24,13 +24,13 @@ export default React.createClass( {
 	mixins: [ PluginNotices ],
 
 	propTypes: {
-		plugins: PropTypes.array,
-		header: PropTypes.string,
-		isWpCom: PropTypes.bool,
-		sites: PropTypes.object,
-		selectedSite: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.object ] ),
+		plugins: PropTypes.array.isRequired,
+		header: PropTypes.string.isRequired,
+		isWpCom: PropTypes.bool.isRequired,
+		sites: PropTypes.object.isRequired,
+		selectedSite: PropTypes.oneOfType( [ PropTypes.bool, PropTypes.object ] ).isRequired,
 		pluginUpdateCount: PropTypes.number,
-		isPlaceholder: PropTypes.bool,
+		isPlaceholder: PropTypes.bool.isRequired,
 	},
 
 	getInitialState() {
